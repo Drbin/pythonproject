@@ -1,3 +1,5 @@
-from django.http import  HttpResponse
+from django.http import HttpResponse
+
+
 def hello(request):
-    return  HttpResponse("this is a view")
+    return HttpResponse("Hello world ! ")
