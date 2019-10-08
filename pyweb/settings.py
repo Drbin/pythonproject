@@ -11,7 +11,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'oqrj4$t389)xl1qy4_*$ic-#a58y516&6@y$^t1z24^ls(@4@('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -42,7 +42,7 @@ ROOT_URLCONF = 'pyweb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR+"/templates",],
+        'DIRS': [BASE_DIR+"/templates", ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
