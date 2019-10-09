@@ -1,7 +1,9 @@
 from django.shortcuts import render
 
 
-def hello(request):
-    context = {}
-    context['hello'] = 'Hello World!'
-    return render(request, 'exam.html', context)
+def index(request):
+    return render(request, 'exam.html')
+
+def sure(request):
+    return render(request, 'sure.html')
+
