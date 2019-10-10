@@ -10,3 +10,5 @@ urlpatterns = [
     path('sure/', view.sure)
 
 ]
+
+#handler404 = view.page_not_found
