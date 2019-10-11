@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.shortcuts import render_to_response
+import json
 
 
 def index(request):
@@ -12,3 +14,8 @@ def exam(request):
 def sure(request):
     return render(request, 'sure.html')
 
+
+def page_not_found(request, **kwargs):
+    response = render_to_response('404.html', {})
+    response.status_code = 400
+    return response
