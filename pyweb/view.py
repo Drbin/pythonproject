@@ -19,3 +19,7 @@ def page_not_found(request, **kwargs):
     response = render_to_response('404.html', {})
     response.status_code = 400
     return response
+
+
+def run():
+    return
