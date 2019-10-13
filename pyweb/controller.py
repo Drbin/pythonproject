@@ -8,3 +8,6 @@ def get_txt_list(request):
 
     return HttpResponse(text)
 
+
+def show_list(request):
+    return 0
