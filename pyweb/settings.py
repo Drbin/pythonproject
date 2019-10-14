@@ -25,6 +25,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pyweb'
+
 ]
 
 MIDDLEWARE = [
@@ -72,9 +74,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',  # 或者使用 mysql.connector.django
         'NAME': 'root',
         'USER': 'root',
-        'PASSWORD': '123456',
-        'HOST':'localhost',
-        'PORT':'3306',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
