@@ -72,7 +72,7 @@ WSGI_APPLICATION = 'pyweb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # 或者使用 mysql.connector.django
-        'NAME': 'root',
+        'NAME': 'drtest',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': 'localhost',
