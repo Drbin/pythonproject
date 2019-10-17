@@ -11,3 +11,7 @@ def get_txt_list(request):
 
 def show_list(request):
     return 0
+
+
+def show_msg():
+    return 0
