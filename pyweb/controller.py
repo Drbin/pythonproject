@@ -15,3 +15,7 @@ def show_list(request):
 
 def show_msg():
     return 0
+
+
+def get_list():
+    return 0
