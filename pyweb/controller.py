@@ -13,8 +13,9 @@ def get_txt_list(request):
 def show_article_list(request):
     if request.method == "GET":
         ll = [{'name': "图书", 'title': '测试数据'}]
-        response = {'code': '200', 'msg': '查询成功', 'data': ll }
+        response = {'code': '200', 'msg': '查询成功', 'data': ll}
         return JsonResponse(response, safe=False, json_dumps_params={'ensure_ascii': False})
+
 
 def show_list(request):
     return 0
