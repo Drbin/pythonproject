@@ -1,5 +1,4 @@
 from django.http import JsonResponse
-import json
 
 
 def show_txt_msg(request):
@@ -27,6 +26,6 @@ def show_msg():
 def get_list(request):
     if request.method == "GET":
         print(request.GET.get("id"))
-        response = {'code': '200', 'msg': '提交成功'}
+        response = {'code': '200', 'msg': '提交成功', 'data': request.GET.get("id")}
         return JsonResponse(response, safe=False, json_dumps_params={'ensure_ascii': False})
 
