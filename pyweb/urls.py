@@ -7,8 +7,9 @@ urlpatterns = [
     path('index/', view.index),
     path('index.html/', view.index),
     path('', view.index),
-    path('get_list/', controller.get_txt_list),
+    path('api/v1/show_txt_msg/', controller.show_txt_msg),
     path('api/v1/show_article_list/', controller.show_article_list),
+    path('api/v1/getList/', controller.get_list),
     path('exam/', view.exam),
     path('sure/', view.sure)
 
