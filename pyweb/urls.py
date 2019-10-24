@@ -2,6 +2,7 @@ from django.urls import path
 
 from . import view
 from . import controller
+from . import de_oper
 
 urlpatterns = [
     path('index/', view.index),
@@ -11,7 +12,8 @@ urlpatterns = [
     path('api/v1/show_article_list/', controller.show_article_list),
     path('api/v1/getList/', controller.get_list),
     path('exam/', view.exam),
-    path('sure/', view.sure)
+    path('sure/', view.sure),
+    path('api/v1/getSql/', de_oper.InitDb)
 
 ]
 
