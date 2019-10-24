@@ -13,7 +13,7 @@ urlpatterns = [
     path('api/v1/getList/', controller.get_list),
     path('exam/', view.exam),
     path('sure/', view.sure),
-    path('api/v1/getSql/', de_oper.InitDb)
+    path('api/v1/getSql/', de_oper.testdb)
 
 ]
 
