@@ -2,7 +2,7 @@ from django.db import models
 from . import logs
 
 
-class Admindb(models.Model):
+class AdminDb(models.Model):
     """用户"""
 
     no = models.IntegerField(primary_key=True, db_column='tbl_admin_id', verbose_name='用户id')
