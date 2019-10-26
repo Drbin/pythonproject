@@ -4,7 +4,7 @@ from . import logs
 
 class AdminDb(models.Model):
     """用户"""
-
+    logs.logs_on("模型被调用")
     id = models.IntegerField(primary_key=True, db_column='tbl_admin_id', verbose_name='用户id')
     name = models.CharField(max_length=40, db_column='tbl_admin_name', verbose_name='真实名称')
     u_name = models.CharField(max_length=40, db_column='tbl_admin_username', verbose_name='登录名')
