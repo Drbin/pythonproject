@@ -27,8 +27,6 @@ def get_list(request):
 
 
 def get_admin(request):
-
-
     if request.method == "POST":
         # 通过objects这个模型管理器的all()获得所有数据行，相当于SQL中的SELECT * FROM
         list = AdminDb.objects.all()
