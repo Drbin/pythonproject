@@ -68,5 +68,21 @@
 
 </div>
  <script src="js/add.js"></script>
+<script>
+    $.ajax({
+        url:"http://202.85.223.75:8090/zpark/CyIndexController/queryHomeCompanyData",
+        type:"GET",
+        success:function(res){
+            var data= res.Data;
+            console.log(data)
+            var str=`<div>
+                `+data.allIncome+`,`+data.landAvgIncome+`,`+data.enterNumber+`
+
+
+                </div>`;
+                console.log(str)
+        }
+    })
+</script>
 </body>
 </html>
