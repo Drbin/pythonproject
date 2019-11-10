@@ -26,6 +26,13 @@ def get_list(request):
         return JsonResponse(response, safe=False, json_dumps_params={'ensure_ascii': False})
 
 
+def del_index_list(request):
+    if request.method == "GET":
+        response = {'code': '200', 'msg': '提交成功', 'data': request.GET.get("id")}
+        logs.logs_on('获取数据')
+        return JsonResponse(response, safe=False, json_dumps_params={'ensure_ascii': False})
+
+
 def get_admin(request):
     if request.method == "POST":
         list_data = AdminDb.objects.all()
