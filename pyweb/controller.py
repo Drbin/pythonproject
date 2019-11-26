@@ -52,3 +52,11 @@ def get_admin(request):
         logs.logs_on("发起了GET请求！")
         response = {'code': '400', 'msg': '请求参数有误，method = POST', 'data': 'error'}
         return JsonResponse(response, safe=False, json_dumps_params={'ensure_ascii': False})
+
+
+def del_admin_item(request):
+    if request.method == "POST":
+        del_data = AdminDb.objects.get(tbl_admin_id=request.POST.get("id")).delete()
+        logs.logs_on("数据库 表tbl_admin 执行删除操作")
+        response = {'code': '200', 'msg':del_data}
+        return JsonResponse(response, safe=False, json_dumps_params={'ensure_ascii': False})
