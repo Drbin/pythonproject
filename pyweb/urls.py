@@ -12,7 +12,8 @@ urlpatterns = [
     path('api/v1/getList/', controller.get_list),
     path('exam/', view.exam),
     path('sure/', view.sure),
-    path('api/v1/getAdmin/', controller.get_admin)
+    path('api/v1/getAdmin/', controller.get_admin),
+    path('api/v1/delAdmin/', controller.del_admin_item)
 
 ]
 
