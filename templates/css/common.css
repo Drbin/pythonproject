@@ -1,0 +1,18 @@
+ *{margin:0; padding: 0;}
+body,html{width: 100%; height: 100%;overflow: hidden;}
+.createBjMapBox{position: absolute; left: 0 ;top:0; z-index: 99999 !important; width: 100%; height: 100%; background: url(../images/bg_temp.png) no-repeat 100%;}
+.map_box_left{ width: 400px; padding: 90px 0;  height: 100%; position: absolute; left: 0; top:0; z-index:999 !important; background-image: url(../images/bg_left.png); background-repeat: no-repeat; background-size: 100%;}
+.map_box_right{ width: 400px; padding: 90px 0;  height: 100%; position: absolute; top:0; z-index:999 !important;right: 0; background-image: url(../images/bg_right.png);background-repeat: no-repeat; background-size: 100%;}
+.map_box_inner{ width: 100%; height: 100%;float: left;position: relative; box-sizing: border-box;}
+.map_box_scroll{ width: 100%; float: left;}
+.map_box_list{ width: 400px; float: left; height: 400px;}
+.map_box_list_inner{ width: 360px; margin-left: 20px; height: 320px; margin-top: 20px;}
+.map_box_list_200{ height: 200px;}
+.map_box_list_700{height: 700px;}
+.map_box_list_700 .map_box_list_inner{ height: 630px;}
+.map_box_list_200 .map_box_list_inner{height: 200px;}
+.radius_bg{ width: 353px; height:44px; line-height: 44px;color:#fff;font-size: 14px; float:left; margin-left: 23px; background-image: url("../images/bg_radius.png"); background-repeat: no-repeat; background-size: 100%; }
+.radius_bg span{float: right; margin-right: 20px; height: 44px; line-height: 44px;color: #c7d7df; font-size: 12px; }
+.radius_bg a{color:#18caf3; text-decoration:underline; }
+.radius_bg i{ float: left; margin: 13px 20px; height: 16px; width: 14px; background-repeat: no-repeat; background-size: 100%; }
+.radius_bg .bg_i{ background-image: url("../images/peo_icon.png"); width: 20px;  }
