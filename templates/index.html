@@ -59,7 +59,36 @@
     });
     function countryMap() {
          var str=`<div class='halfMap halfMaps' id='localMap'></div><div id="worldMap" class='halfMap'></div>
+ <div class='map_box_inner' id='scrollBox'>
+                        <div class='map_box_scroll'>
+                            <div class="map_box_list">
+                                 <div class="radius_bg">
+                                    <i class="bg_i"></i>年龄分布
+                                 </div>
+                                 <div class='map_box_list_inner' id='ageRank2'></div>
+                            </div>
+                            <div class="map_box_list map_box_list_200">
+                                 <div class="radius_bg">
+                                    <i class="bg_i"></i>性别比例
+                                 </div>
+                                 <div class='map_box_list_inner' id='sexType2'></div>
+                            </div>
 
+
+                        </div>
+                    </div>
+                </div>
+         <div class='map_box_right'>
+            <div class='map_box_inner'>
+                    <div class='map_box_scroll'>
+                    <div class="map_box_list map_box_list_700">
+                         <div class="radius_bg">
+                            <i class="bg_i"></i>籍贯
+                         </div>
+                         <div class='map_box_list_inner' id='hometown2'></div>
+                    </div></div>
+                </div>
+            </div>
             `;
 
         $("#bjMapBox").append(str);
