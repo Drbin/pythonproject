@@ -84,19 +84,21 @@
     }
     function provinceMap() {
         var str=`<div class='halfMap halfMaps' id='localMap'></div><div id="worldMap" class='halfMap'></div>
+         <div class='map_box_left'>
+
          <div class='map_box_inner' id='scrollBox'>
                         <div class='map_box_scroll'>
                             <div class="map_box_list">
                                  <div class="radius_bg">
                                     <i class="bg_i"></i>年龄分布
                                  </div>
-                                 <div class='map_box_list_inner' id='ageRank'></div>
+                                 <div class='map_box_list_inner' id='ageRank1'></div>
                             </div>
                             <div class="map_box_list map_box_list_200">
                                  <div class="radius_bg">
                                     <i class="bg_i"></i>性别比例
                                  </div>
-                                 <div class='map_box_list_inner' id='sexType'></div>
+                                 <div class='map_box_list_inner' id='sexType1'></div>
                             </div>
 
 
@@ -110,7 +112,7 @@
                          <div class="radius_bg">
                             <i class="bg_i"></i>籍贯
                          </div>
-                         <div class='map_box_list_inner' id='hometown'></div>
+                         <div class='map_box_list_inner' id='hometown1'></div>
                     </div></div>
                 </div>
             </div>
@@ -195,7 +197,7 @@
         dataType:'json',
         type:'GET',
         success:function(res){
-            hometown(res)
+            hometown(res,'hometown')
         }
     })
         $.ajax({
@@ -356,8 +358,17 @@
                        type:'GET',
                        datatype:'json',
                        success:function (res) {
-                           console.log(res)
+                           hometown(res.data,'hometown1',true)
                            createChinaMap("worldMap",res.data.data,'')
+                       }
+                   })
+                    $.ajax({
+                       url:'http://202.85.223.75:8090/zpark/HumanityController/getFlowPeopleData',
+                       data:{'isInZpark':"在园区工作",liveLocation:params.name,"groupName":"age","lastYear":"lastYear","limit":50},
+                       type:'GET',
+                       datatype:'json',
+                       success:function (res) {
+                           ageFor(res.data,'ageRank2',true)
                        }
 
                    })
@@ -381,10 +392,25 @@
                        type:'GET',
                        datatype:'json',
                        success:function (res) {
+                           hometown(res.data,'hometown1',true)
+
                            createWorldMap("worldMap",res.data.data,'')
                        }
 
                    })
+                  $.ajax({
+                       url:'http://202.85.223.75:8090/zpark/HumanityController/getFlowPeopleData',
+                       data:{'isInZpark':"在园区工作",liveLocation:params.name,"groupName":"age","lastYear":"lastYear","limit":50},
+                       type:'GET',
+                       datatype:'json',
+                       success:function (res) {
+
+                           ageFor(res.data,'ageRank2',true)
+                       }
+
+                   })
+
+
 
                 });
             }
@@ -775,7 +801,7 @@
     var option = {
         tooltip : {
             trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
+            formatter: "{b} : {c} ({d}%)"
 
         },
         legend: {
@@ -812,7 +838,7 @@
     var myChart = echarts.init(document.getElementById(dom));
     myChart.setOption(option);
 }
-function hometown(data){
+function hometown(data,dom,flag){
     var option = {
         tooltip : {
             trigger: 'axis',
@@ -831,7 +857,12 @@ function hometown(data){
             type: 'value',
             axisLabel: {
                 formatter:function(value){
-                    return (value/1000)+'k'
+                    if(flag){
+                        return value
+                    }else{
+                        return (value/1000)+'k'
+
+                    }
                 },
                 textStyle: {
                     fontSize: 14,
@@ -882,7 +913,7 @@ function hometown(data){
             }
         ]
     };
-    var myChart = echarts.init(document.getElementById("hometown"));
+    var myChart = echarts.init(document.getElementById(dom));
     myChart.setOption(option);
 }
 function createSexType(b,g,dom){
