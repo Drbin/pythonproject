@@ -59,6 +59,8 @@
     });
     function countryMap() {
          var str=`<div class='halfMap halfMaps' id='localMap'></div><div id="worldMap" class='halfMap'></div>
+         <div class='map_box_left'>
+
  <div class='map_box_inner' id='scrollBox'>
                         <div class='map_box_scroll'>
                             <div class="map_box_list">
@@ -71,7 +73,7 @@
                                  <div class="radius_bg">
                                     <i class="bg_i"></i>性别比例
                                  </div>
-                                 <div class='map_box_list_inner' id='sexType2'></div>
+                                 <div class='map_box_list_inner' id='sexRank1'></div>
                             </div>
 
 
@@ -83,7 +85,7 @@
                     <div class='map_box_scroll'>
                     <div class="map_box_list map_box_list_700">
                          <div class="radius_bg">
-                            <i class="bg_i"></i>籍贯
+                            <i class="bg_i"></i>国籍
                          </div>
                          <div class='map_box_list_inner' id='hometown2'></div>
                     </div></div>
@@ -127,7 +129,7 @@
                                  <div class="radius_bg">
                                     <i class="bg_i"></i>性别比例
                                  </div>
-                                 <div class='map_box_list_inner' id='sexType1'></div>
+                                 <div class='map_box_list_inner' id='sexRank1'></div>
                             </div>
 
 
@@ -182,7 +184,7 @@
                                  <div class="radius_bg">
                                     <i class="bg_i"></i>性别比例
                                  </div>
-                                 <div class='map_box_list_inner' id='sexType'></div>
+                                 <div class='map_box_list_inner' id='sexRank'></div>
                             </div>
 
 
@@ -210,14 +212,20 @@
             })
 
         }
-
+   $.ajax({
+        url:'http://202.85.223.75:8090/zpark/HumanityController/sexAnalyst',
+        dataType:'json',
+        type:'GET',
+        success:function(res){
+            createSexType(res.data[0].value,res.data[1].value,'sexRank')
+        }
+    })
     $.ajax({
         url:'http://202.85.223.75:8090/zpark/HumanityController/getNewLastAgeYearSection',
         dataType:'json',
         type:'GET',
         success:function(res){
             ageFor(res.data,'ageRank')
-
         }
     })
 
@@ -397,7 +405,19 @@
                        type:'GET',
                        datatype:'json',
                        success:function (res) {
-                           ageFor(res.data,'ageRank2',true)
+                           ageFor(res.data,'ageRank1',true)
+
+                       }
+
+                   })
+                      $.ajax({
+                       url:'http://202.85.223.75:8090/zpark/HumanityController/getFlowPeopleData',
+                       data:{'isInZpark':"在园区工作",liveLocation:params.name,"groupName":"sex","lastYear":"lastYear","limit":50},
+                       type:'GET',
+                       datatype:'json',
+                       success:function (res) {
+                           createSexType(res.data.data[0].value,res.data.data[1].value,'sexRank1')
+
                        }
 
                    })
@@ -421,7 +441,7 @@
                        type:'GET',
                        datatype:'json',
                        success:function (res) {
-                           hometown(res.data,'hometown1',true)
+                           hometown(res.data,'hometown2',true)
 
                            createWorldMap("worldMap",res.data.data,'')
                        }
@@ -435,6 +455,17 @@
                        success:function (res) {
 
                            ageFor(res.data,'ageRank2',true)
+                       }
+
+                   })
+                    $.ajax({
+                       url:'http://202.85.223.75:8090/zpark/HumanityController/getFlowPeopleData',
+                       data:{'isInZpark':"在园区工作",liveLocation:params.name,"groupName":"sex","lastYear":"lastYear","limit":50},
+                       type:'GET',
+                       datatype:'json',
+                       success:function (res) {
+                           createSexType(res.data.data[0].value,res.data.data[1].value,'sexRank2')
+
                        }
 
                    })
@@ -951,13 +982,13 @@ function createSexType(b,g,dom){
     var a2=(g/(b+g)).toFixed(2)
     a2=a2*100;
     var img1 = {
-        a: filePath+'resource/images/girl_icon.png',
-        b: filePath+'resource/images/girl_gary_icon.png',
+        a:'images/girl_icon.png',
+        b:'images/girl_gary_icon.png',
     }
 
     var img2 = {
-        a: filePath+'resource/images/boy_icon.png',
-        b: filePath+'resource/images/boy_gary_icon.png',
+        a:'images/boy_icon.png',
+        b: 'images/boy_gary_icon.png',
     }
     var value = 1;
     var option = {
