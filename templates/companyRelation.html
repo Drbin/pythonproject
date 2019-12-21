@@ -3,18 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <title>公司关系</title>
+        <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.js"></script>
+    <script src="http://202.85.223.75:8090/zpark/js/map/china.js"></script>
+    <script src="http://202.85.223.75:8090/zpark/js/map/world.js"></script>
+    <script src="http://202.85.223.75:8090/zpark/lib/echarts-wordcloud.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
     <link href="css/common.css" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
-<div class="createBjMapBox">
-  <div class='map_box_right'>
-                    <div class='map_box_inner'>
-                        <div class='map_box_scroll'></div>
-                    </div>
-                </div>
+<div class="createBjMapBox" style="">
+    <img src="images/logoA.png" width="310" height="30" style="position: absolute; top:30px; left: 20px;">
+
+    <div style="width: 80%; height: 85%;margin: 5% 10%; float: left; " id="gx"></div>
+    <img src="images/logoB.png" width="237" height="44" style="position: absolute; bottom: 10px; right: 10px;">
 
 </div>
+<script>
+    $.ajax({
+        url:'http://202.85.223.75:8090/zpark/ZparkCooperateController/queryCompanyRelationships',
+        type:'GET',
+        dataType:'json',
+        success:function (res) {
+            drawGx(res.Data,'gx');
 
+        }
+    })
+    function drawGx(data,dom) {
+        var graph = data;
+        var categories = [];
+        for (var i = 0; i < data.relations.length; i++) {
+            categories[i] = {
+                name: data.relations[i]
+            };
+        }
+        console.log(categories)
+        graph.nodes.forEach(function (node) {
+            node.itemStyle = null;
+            node.symbolSize = 10;
+            node.value = node.symbolSize;
+            // Use random x, y
+            node.x = node.y = null;
+            node.draggable = true;
+        });
+        option = {
+            color:["#20e49f","#0bc785","#5cc3f0","#4189a9","#28a9e1","#6690f2","#0d6a92","#3469e4","#4866ab"],
+            tooltip: {},
+            legend: [{
+                 textStyle: {
+                     fontSize: 12,//字体大小
+                     color: '#ffffff'//字体颜色
+                 },
+                data: categories.map(function (a) {
+                    return a.name;
+                })
+            }],
+            animation: false,
+            series : [
+                {
+                    name: '公司关系',
+                    type: 'graph',
+                    layout: 'force',
+                    data: graph.nodes,
+                    links: graph.relationShips,
+                    categories: categories,
+                    roam: true,
+                    label: {
+                        normal: {
+                            position: 'right'
+                        }
+                    },
+                    force: {
+                        repulsion: 100
+                    }
+                }
+            ]
+        };
+        var myChart = echarts.init(document.getElementById(dom));
+        myChart.setOption(option);
+    }
+
+</script>
 </body>
+
 </html>
