@@ -27,8 +27,8 @@
     </style>
 </head>
 <body>
-<div id="div2d">
 
+<div id="div2d">
 </div>
 </body>
 <script>
@@ -874,7 +874,7 @@
             }
 
         },
-        color: ['#5EA6FE', '#45FBF7', '#48FF58', '#EAE809', '#FF7E3F', '#FF4746', '#E177F9', '#4E6BFF'],
+        color: ['#5EA6FE', '#45FBF7', '#FF7E3F', '#FF4746', '#E177F9', '#4E6BFF'],
 
         series : [
             {
@@ -1123,5 +1123,14 @@ function createSexType(b,g,dom){
     var myChart = echarts.init(document.getElementById(dom));
     myChart.setOption(option);
 }
+</script>
+<script src="http://202.85.223.75/html/templates/laydate/laydate.js"></script>
+<script>
+      laydate.render({
+        elem: '#laydate',
+        done: function(value, date){
+            alert('你选择的日期是：' + value + '\n获得的对象是' + JSON.stringify(date));
+        }
+    });
 </script>
 </html>
