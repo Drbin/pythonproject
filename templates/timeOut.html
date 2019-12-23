@@ -35,7 +35,7 @@
     dateClid('')
    function dateClid(d) {
        $.ajax({
-           url:'http://202.85.223.75:8090/zpark/OperationController/getVehicleInAndOut?date='+d,
+           url:'http://202.85.223.75:8090/zpark//HumanityController/selectLastSevenDayPeopleInParkByDay?day='+d,
            type:'GET',
            dataType:'json',
            success:function (res) {
