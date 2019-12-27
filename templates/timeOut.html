@@ -14,7 +14,6 @@
     </style>
 </head>
 <body>
-<div class='timeCensus'>时点统计</div>
 <div class="timeCensusSel ">
    <input id='laydate' type='text' placeholder="请选择时间" />
 </div>
@@ -29,7 +28,9 @@
   laydate.render({
         elem: '#laydate',
         done: function(value){
-            dateClid(value)
+            var a= value.replace(/-/g, '');
+
+            dateClid(a)
         }
     });
     dateClid('')
@@ -39,7 +40,7 @@
            type:'GET',
            dataType:'json',
            success:function (res) {
-               if(res==''){
+               if(res.data.data==''){
                    $("#xdl").remove();
                     $("#timeCensusBox").append(`<div id='xdl' class='timeCensusBox_inner'>没有数据</div>`)
                }else{
@@ -47,7 +48,7 @@
 
                     $("#timeCensusBox").append(`<div id='xdl' class='timeCensusBox_inner'></div>`)
 
-                  cWendu(res,'xdl');
+                  cWendu(res.data,'xdl');
 
                }
            },
@@ -60,24 +61,7 @@
 
    }
 function cWendu(data,dom){
-    let a=[];
-    for(let i=0; i<data.data.length;i++){
-        a.push( {
-            name: data.data[i].name,
-            type: 'line',
-            smooth: true,
-            lineStyle: {
-                normal: {
-                    width: 3,
-                    shadowColor: 'rgba(0,0,0,0.4)',
-                    shadowBlur: 10,
-                    shadowOffsetY: 10
-                }
-            },
-            data:data.data[i].value
-        })
-    }
-    console.log(a)
+
     let option = {
          tooltip: {
             trigger: 'axis',
@@ -127,7 +111,20 @@ function cWendu(data,dom){
             boundaryGap: false,
             data: data.item,
         },
-        series: a
+        series: {
+            name: data.data[0].name,
+            type: 'line',
+            smooth: true,
+            lineStyle: {
+                normal: {
+                    width: 3,
+                    shadowColor: 'rgba(0,0,0,0.4)',
+                    shadowBlur: 10,
+                    shadowOffsetY: 10
+                }
+            },
+            data:data.data[0].value
+        }
     };
     var myChart = echarts.init(document.getElementById(dom));
     myChart.setOption(option);
