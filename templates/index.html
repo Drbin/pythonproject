@@ -427,7 +427,23 @@
                 ]
             });
             if(click==1){
+
                myChart.on('click', function (params) {
+                    $.ajax({
+                        url:'http://202.85.223.75:8090/zpark/HumanityController/getLiveJobFlow',
+                        dataType:'json',
+                        type:'GET',
+                        success:function (res) {
+                            var data=[]
+                            for(var i=0;i<res.data.data.length;i++){
+                                data.push({
+                                    name:res.data.item[i],
+                                    value: res.data.data[i]
+                                })
+                            }
+                            createBjMap('localMap',data,'1');
+                        }
+                    })
                    this.dispatchAction({
                       type: 'downplay', // 取消高亮指定的数据图形
                       seriesIndex: 0
@@ -474,6 +490,21 @@
             }else if(click==2){
 
               myChart.on('click', function (params) {
+                 $.ajax({
+                    url:'http://202.85.223.75:8090/zpark/HumanityController/getLiveJobFlow',
+                    dataType:'json',
+                    type:'GET',
+                    success:function (res) {
+                        var data=[]
+                        for(var i=0;i<res.data.data.length;i++){
+                            data.push({
+                                name:res.data.item[i],
+                                value: res.data.data[i]
+                            })
+                        }
+                        createBjMap('localMap',data,'1');
+                    }
+                })
                     this.dispatchAction({
                       type: 'downplay', // 取消高亮指定的数据图形
                       seriesIndex: 0
