@@ -937,9 +937,10 @@
                 maps
             ]
         }
-        var myChart = echarts.init(document.getElementById(dom));
-        myChart.setOption(option);
-         myChart.on('click', function (params) {
+        var myChart1 = echarts.init(document.getElementById(dom));
+        myChart1.setOption(option);
+         myChart1.on('click', function (params) {
+
                this.dispatchAction({
                   type: 'downplay', // 取消高亮指定的数据图形
                   seriesIndex: 0
@@ -955,8 +956,10 @@
                type:'GET',
                datatype:'json',
                success:function (res) {
+                   createBjMap("localMap",res.data.data,'1');
                    hometown(res.data,'hometown1',true);
-                   createBjMap("localMap",res.data.data,'1')
+                   return false;
+
                }
            })
             $.ajax({
@@ -981,6 +984,15 @@
                }
 
            })
+             $.ajax({
+                url:'http://202.85.223.75:8090/zpark/HumanityController/getNativePlaceRankBarChart',
+                dataType:'json',
+                type:'GET',
+                success:function(res){
+                    createChinaMap('worldMap',res.data)
+                }
+            })
+             return false;
 
         });
 
