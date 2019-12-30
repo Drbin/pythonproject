@@ -865,7 +865,7 @@
              return res;
          };
          var maps='';
-         if(data){
+          if(data){
              maps=
              {
                 name: '点',
@@ -941,15 +941,95 @@
         myChart1.setOption(option);
          myChart1.on('click', function (params) {
 
-               this.dispatchAction({
-                  type: 'downplay', // 取消高亮指定的数据图形
-                  seriesIndex: 0
-                })
-                this.dispatchAction({
-                  type: 'highlight',
-                  seriesIndex: 0,
-                  name: params.name
-                })
+             $.ajax({
+                url:'http://202.85.223.75:8090/zpark/HumanityController/getNativePlaceRankBarChart',
+                dataType:'json',
+                type:'GET',
+                success:function(res){
+                    var data=res.data;
+                    let option1 = {
+                 geo: {
+                    show: true,
+                    map: 'china',
+                    label: {
+                        normal: {
+                            show: false
+                        },
+                        emphasis: {
+                            show: false,
+                        }
+                    },
+                    roam: true,
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#031525',
+                            borderColor: '#3B5077',
+                        },
+                        emphasis: {
+                            areaColor: '#2B91B7',
+                        }
+                    }
+                },
+                visualMap: {
+                    max: 8000,
+                    calculable: true,
+                    show:false,
+                    colorLightness: [0.2, 100],
+                    dimension: 0
+                },
+                series: [
+                    {
+                    name: '点',
+                    type: 'scatter',
+                    coordinateSystem: 'geo',
+                    symbol: 'circle',
+                    symbolSize:50,
+                    label: {
+                        normal: {
+                            formatter: function(data) {
+                                var params= data.data.value;
+                                return params[3]+'\n\n'+params[2];
+                            },
+                            show: true,
+                            textStyle: {
+                                color: '#031525',
+                                fontSize: 9,
+                            },
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#F62157', //标志颜色
+                        }
+                    },
+                    emphasis: {
+                        itemStyle: {
+                            color: 'red'
+                        },
+                        label: {
+                            show: true,
+                        }
+                    },
+                    zlevel: 666,
+                    data: convertData(data),
+                 }
+
+                ]
+            }
+                    myChart1.setOption(option1);
+            this.dispatchAction({
+              type: 'downplay', // 取消高亮指定的数据图形
+              seriesIndex: 0
+            })
+            this.dispatchAction({
+              type: 'highlight',
+              seriesIndex: 0,
+              name: params.name
+            })
+                }
+            })
+
+
            $.ajax({
                url:'http://202.85.223.75:8090/zpark/HumanityController/getFlowPeopleData',
                data:{'isInZpark':"在园区工作",province:params.name,"groupName":"live_location","lastYear":"lastYear","limit":50},
@@ -984,14 +1064,6 @@
                }
 
            })
-             $.ajax({
-                url:'http://202.85.223.75:8090/zpark/HumanityController/getNativePlaceRankBarChart',
-                dataType:'json',
-                type:'GET',
-                success:function(res){
-                    createChinaMap('worldMap',res.data)
-                }
-            })
              return false;
 
         });
