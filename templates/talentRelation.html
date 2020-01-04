@@ -117,9 +117,7 @@
 
     var convertData = function(list){
         list.forEach((data,index) => {
-            // console.log(index);
-            // data.x = index * 50;
-            // data.y = size + index * 10;
+
             data.formatter = function(params) {
                 return params.data.showName
             };
@@ -143,9 +141,7 @@
     convertData(listdata);
     convertLink(links);
 
-    // console.log(listdata);
 
-    // 初始化echarts实例
     var myChart = echarts.init(document.getElementById(dom));
 
     let option = {
@@ -197,7 +193,6 @@
                         fontSize: "12" //字体大小
                     },
                     formatter: function(params) {
-                        // console.log(params.data);
                         return params.data.showName //此处为label转换 并转换颜色
                     },
                     fontSize: 18,
@@ -211,7 +206,6 @@
                         fontSize: 12
                     },
                     formatter: function(params) {
-                        // console.log(params.data);
                         return '关系：' + params.data.value;
                     }
                 }
