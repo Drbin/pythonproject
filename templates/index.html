@@ -173,46 +173,62 @@
 `;
 
         $("#bjMapBox").append(str);
+             $.ajax({
+               url:'http://202.85.223.75:8090/zpark/HumanityController/getFlowPeopleData',
+               data:{'isInZpark':"在园区工作","groupName":"live_location","lastYear":"lastYear","limit":50},
+               type:'GET',
+               datatype:'json',
+               success:function (res) {
+                   createBjMap("localMap",res.data.data,'1');
+                   return false;
+
+               }
+           })
+
+
+            $.ajax({
+               url:'http://202.85.223.75:8090/zpark/HumanityController/getFlowPeopleData',
+               data:{'isInZpark':"在园区工作","groupName":"age","lastYear":"lastYear","limit":50},
+               type:'GET',
+               datatype:'json',
+               success:function (res) {
+            ageFor(res.data,'ageRank1',true)
+
+               }
+
+           })
+              $.ajax({
+               url:'http://202.85.223.75:8090/zpark/HumanityController/getFlowPeopleData',
+               data:{'isInZpark':"在园区工作","groupName":"sex","lastYear":"lastYear","limit":50},
+               type:'GET',
+               datatype:'json',
+               success:function (res) {
+                   createSexType(res.data[0].value,res.data[1].value,'sexRank1')
+
+               }
+
+           })
+
         $.ajax({
-            url:'http://202.85.223.75:8090/zpark/HumanityController/getLiveJobFlow',
+            url:'http://202.85.223.75:8090/zpark/HumanityController/getNewLastAgeYearSection',
             dataType:'json',
             type:'GET',
-            success:function (res) {
-                var data=[]
-                for(var i=0;i<res.data.data.length;i++){
-                    data.push({
-                        name:res.data.item[i],
-                        value: res.data.data[i]
-                    })
-                }
-                createBjMap('localMap',data,'1');
+            success:function(res){
+                ageFor(res.data,'ageRank1')
             }
-        })
-    $.ajax({
-        url:'http://202.85.223.75:8090/zpark/HumanityController/sexAnalyst',
-        dataType:'json',
-        type:'GET',
-        success:function(res){
-            createSexType(res.data[0].value,res.data[1].value,'sexRank1')
-        }
-    })
-    $.ajax({
-        url:'http://202.85.223.75:8090/zpark/HumanityController/getNewLastAgeYearSection',
-        dataType:'json',
-        type:'GET',
-        success:function(res){
-            ageFor(res.data,'ageRank1')
-        }
-    })
-    $.ajax({
-        url:'http://202.85.223.75:8090/zpark/HumanityController/getNativePlaceRankBarChart',
-        dataType:'json',
-        type:'GET',
-        success:function(res){
-            hometown(res,'hometown1');
-            createChinaMap('worldMap',res.data)
-        }
-    })
+        });
+        $.ajax({
+               url:'http://202.85.223.75:8090/zpark/HumanityController/getFlowPeopleData',
+               data:{'isInZpark':"在园区工作","groupName":"province","lastYear":"lastYear","limit":50},
+               type:'GET',
+               datatype:'json',
+               success:function (res) {
+                     hometown(res.data,'hometown1',true);
+                    createChinaMap("worldMap",res.data.data,'')
+
+               }
+
+           })
 
 
 
@@ -1002,13 +1018,14 @@
         myChart1.setOption(option);
          myChart1.on('click', function (params) {
              let _this=this
+                       $.ajax({
+               url:'http://202.85.223.75:8090/zpark/HumanityController/getFlowPeopleData',
+               data:{'isInZpark':"在园区工作","groupName":"province","lastYear":"lastYear","limit":50},
+               type:'GET',
+               datatype:'json',
+               success:function (res) {
 
-             $.ajax({
-                url:'http://202.85.223.75:8090/zpark/HumanityController/getNativePlaceRankBarChart',
-                dataType:'json',
-                type:'GET',
-                success:function(res){
-                    var data=res.data;
+                    var data=res.data.data;
                     let option1 = {
                  geo: {
                     show: true,
@@ -1099,11 +1116,22 @@
                datatype:'json',
                success:function (res) {
                    createBjMap("localMap",res.data.data,'1');
+                   return false;
+
+               }
+           })
+                    $.ajax({
+               url:'http://202.85.223.75:8090/zpark/HumanityController/getFlowPeopleData',
+               data:{'isInZpark':"在园区工作",province:params.name,"groupName":"province","lastYear":"lastYear","limit":50},
+               type:'GET',
+               datatype:'json',
+               success:function (res) {
                    hometown(res.data,'hometown1',true);
                    return false;
 
                }
            })
+
             $.ajax({
                url:'http://202.85.223.75:8090/zpark/HumanityController/getFlowPeopleData',
                data:{'isInZpark':"在园区工作",province:params.name,"groupName":"age","lastYear":"lastYear","limit":50},
@@ -1396,6 +1424,7 @@ function createSexType(b,g,dom){
     var myChart = echarts.init(document.getElementById(dom));
     myChart.setOption(option);
 }
+
 </script>
 
 </html>
